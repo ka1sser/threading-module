@@ -15,20 +15,21 @@ def do_something(seconds):
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
     # Execute functions one at a time using .submit()
-    # .submit(func, time in seconds) -> schedules a function to be executed and returns a future object
+    # .submit(func, *args) -> schedules a function to be executed and returns a future object
     # Created a list via list comprehension
+
     secs = [5, 4, 3, 2, 1]
 
-    results = [executor.submit(do_something, sec) for sec in secs]
+    # results = [executor.submit(do_something, sec) for sec in secs]
 
-    for f in concurrent.futures.as_completed(results):
-        print(f.result())
+    # for f in concurrent.futures.as_completed(results):
+    #     print(f.result())
 
     # Another option
     # .map() returns the results in the order that they were started
-    # results = executor.map(do_something, secs)
-    # for result in results:
-    #     print(result)
+    results = executor.map(do_something, secs)
+    for result in results:
+        print(result)
 
 finish = time.perf_counter()
 
